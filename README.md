@@ -36,3 +36,4 @@ $$divisor=N_{ciclos}=\frac{F_{clk}}{F_{muestreo}\cdot 16 \cdot 2 \cdot 2}$$
 parameter divisor = freq_hz/freq_music/resolution/4;
 ```
 ![Hola](assets/images/state_diagram.png)
+![Hola](assets/images/state_diagrama.svg)
