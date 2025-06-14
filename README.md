@@ -35,5 +35,18 @@ $$divisor=N_{ciclos}=\frac{F_{clk}}{F_{muestreo}\cdot 16 \cdot 2 \cdot 2}$$
 ```verilog
 parameter divisor = freq_hz/freq_music/resolution/4;
 ```
-![Diagrama de estados de la escritura en memoria](assets/images/diagram.png)
+Para sincronizar los tiempos de escritura por parte del CPU y la reproducción del audio del módulo, se creó una pseudo-memoria que almacena 511 registros de 16 bits, es decir, 1 KB. La CPU puede escribir a la velocidad que desee, y el módulo va accediendo a esta memoria a su propia frecuencia. De esta manera, la CPU no debe sincronizar los tiempos del módulo, lo que implicaría calcular retardos muy precisos.
 
+```verilog
+reg [15:0] MEM [0:511]; 
+```
+A continuacion el diagrama de flujo que describe el comportamiento de la escritura en memoria.
+
+<p align="center">
+  <img src="assets/images/diagram.png" width="500" />
+</p>
+<p align="center">
+  <em> Diagrama de estados de la escritura en la memoria temporal </em>
+</p>
+
+En el modulo principal encargado de las señales de salida encontramos un divisor de frecuencia que genera la señal <ins>sck</ins>, apartir de los ciclos de esta señal se va enviando por <ins>sd</ins> el bit mas significativo de cada dato en la memoria, cada 16 bits se invierte la señal de <ins>ws</ins>, ya que se debe mandar los valores para el canal izquierdo y derecho.
