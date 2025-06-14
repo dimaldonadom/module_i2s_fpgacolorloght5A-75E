@@ -11,17 +11,17 @@ El modulo en verilog que es el archivo llamado [i2s.v](module/i2s.v), tiene 3 pa
 module i2s #(
 	parameter          freq_hz = 60000000,
 	parameter          resolution = 16,
-    parameter          freq_music = 13000
+    	parameter          freq_music = 13000
 ) (
 	input              rst,
 	input              clk,
 
 	output reg         sck,
 	output reg         sd,
-  output reg         ws,
+  	output reg         ws,
 
 	input      [15:0]  dta,
-  input              init,
+  	input              init,
 	output reg         busy
 );
 
@@ -35,3 +35,4 @@ $$divisor=N_{ciclos}=\frac{F_{clk}}{F_{muestreo}\cdot 16 \cdot 2 \cdot 2}$$
 ```verilog
 parameter divisor = freq_hz/freq_music/resolution/4;
 ```
+![Hola](assets/images/state_diagram.png)
